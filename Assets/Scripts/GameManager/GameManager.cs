@@ -23,15 +23,14 @@ public struct GameStageStats
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI scoreTxt;
+    public bool isRunning = false;
+    public float currentRunTime = 0;
+    public float highestRunTime;
+
     [SerializeField] List<GameStageStats> gameStages;
-    [HideInInspector] public GameStageStats CurrentGameStats;
+    [HideInInspector] private GameStageStats CurrentGameStats;
 
     private ObstacleCreation obstacleCreation;
-
-    private bool isRunning = false;
-    private float currentRunTime = 0;
-    private float highestRunTime = 0;
 
     public static GameManager Instance;
     private void Awake()
@@ -45,15 +44,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         obstacleCreation = GetComponent<ObstacleCreation>();
-        highestRunTime = PlayerPrefs.GetFloat("High Score", 0);
+        highestRunTime = PlayerPrefs.GetFloat("High Score");
+        UIManager.Instance.ActiveHomePanel();
     }
 
     private void Update()
     {
         if (isRunning)
-            currentRunTime = 1 * Time.deltaTime;
+            currentRunTime += 1 * Time.deltaTime;
 
-        scoreTxt.text = $"Score: {(int)currentRunTime}";
         CalculateGameStage();
     }
 
@@ -75,20 +74,21 @@ public class GameManager : MonoBehaviour
     {
         isRunning = true;
         currentRunTime = 0;
-        obstacleCreation.shouldCalculateObstacles = true;
     }
 
     public void EndGame()
     {
         isRunning = false;
-        obstacleCreation.shouldCalculateObstacles = false;
         if(currentRunTime > highestRunTime)
+        {
             highestRunTime = currentRunTime;
+            PlayerPrefs.SetFloat("High Score", highestRunTime);
+        }
+        UIManager.Instance.ActiveEndGamePanel();
     }
 
     public void CloseGame()
     {
-        PlayerPrefs.SetFloat("High Score", highestRunTime);
         Application.Quit();
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ObstacleCreation : MonoBehaviour
 {
-    public bool shouldCalculateObstacles = false;
-
     [Tooltip("The Amount of instances of each obstacles prefab that should be spawned at the start for object pooling.")]
     [SerializeField] private int numberOfObstaclesInstances = 1;
     [Tooltip("A gameobject to act as the starting point for when obstacles become active")]
@@ -28,7 +26,7 @@ public class ObstacleCreation : MonoBehaviour
 
     private void Update()
     {
-        if(shouldCalculateObstacles)
+        if(GameManager.Instance.isRunning)
             CalculateNextObstacle();
     }
 

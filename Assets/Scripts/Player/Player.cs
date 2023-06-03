@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
         Debug.DrawRay(transform.position + new Vector3(0, 0.1f, 0), gameObject.transform.forward * 0.25f, Color.red);
         if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), gameObject.transform.forward, out RaycastHit frontHit, 0.25f))
         {
-            //if hits anything, end game
+            GameManager.Instance.EndGame();
         }
 
         Debug.DrawRay(transform.position + new Vector3(0, 0.1f, 0), -gameObject.transform.up * 0.11f, Color.red);
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
             isGrounded = true;
             if (downHit.collider.CompareTag("Obstacle"))
             {
-                //end game
+                GameManager.Instance.EndGame();
             }
         }
     }
