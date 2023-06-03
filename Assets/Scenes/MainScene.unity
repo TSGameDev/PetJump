@@ -920,6 +920,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 662826747, guid: ce320b492c3d5144da4727cc3a4402e5, type: 3}
+      propertyPath: m_Constraints
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 662826747, guid: ce320b492c3d5144da4727cc3a4402e5, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 526679101306412108, guid: ce320b492c3d5144da4727cc3a4402e5, type: 3}
+      propertyPath: jumpForce.y
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2801481375361147712, guid: ce320b492c3d5144da4727cc3a4402e5, type: 3}
       propertyPath: m_RootOrder
       value: 3
