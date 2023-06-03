@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObstacleCreation : MonoBehaviour
 {
+    public bool shouldCalculateObstacles = false;
+
     [Tooltip("The Amount of instances of each obstacles prefab that should be spawned at the start for object pooling.")]
     [SerializeField] private int numberOfObstaclesInstances = 1;
     [Tooltip("A gameobject to act as the starting point for when obstacles become active")]
@@ -13,8 +15,11 @@ public class ObstacleCreation : MonoBehaviour
     [SerializeField] private List<GameObject> obstaclePrefabs;
 
     private List<Obstacle> obstacleObjectPool = new List<Obstacle>();
-
     private float nextObstacleTimer = 1f;
+
+    public float obstacleSpeed { private get; set; }
+    public float obstacleMinSpawnInterval { private get; set; }
+    public float obstacleMaxSpawnInterval { private get; set; }
 
     private void Start()
     {
@@ -23,7 +28,8 @@ public class ObstacleCreation : MonoBehaviour
 
     private void Update()
     {
-        CalculateNextObstacle();
+        if(shouldCalculateObstacles)
+            CalculateNextObstacle();
     }
 
     private void ObjectPoolInitialisation()
@@ -45,7 +51,7 @@ public class ObstacleCreation : MonoBehaviour
         int NextRandomObstacle = Random.Range(0, obstacleObjectPool.Count);
         if(!obstacleObjectPool[NextRandomObstacle].IsActive())
         {
-            obstacleObjectPool[NextRandomObstacle].Activate(GameManager.Instance.CurrentGameStats.stageObstacleSpeed);
+            obstacleObjectPool[NextRandomObstacle].Activate(obstacleSpeed);
         }
         else
             ActiveNextObstacle();
@@ -56,9 +62,7 @@ public class ObstacleCreation : MonoBehaviour
         if(nextObstacleTimer <= 0)
         {
             ActiveNextObstacle();
-            float RandomNumber = Random.Range(
-                GameManager.Instance.CurrentGameStats.stageMinObstacleSpawnInterval,
-                GameManager.Instance.CurrentGameStats.stageMaxObstacleSpawnInterval);
+            float RandomNumber = Random.Range(obstacleMinSpawnInterval, obstacleMaxSpawnInterval);
             nextObstacleTimer = RandomNumber;
         }
         else
