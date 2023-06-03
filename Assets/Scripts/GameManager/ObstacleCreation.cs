@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleCreation : MonoBehaviour
 {
-    [Tooltip("The Amount of instances of each obstacles prefab that should be spawned at the start for object pooling. If there isn't enough obstacles more will be spawned as required")]
+    [Tooltip("The Amount of instances of each obstacles prefab that should be spawned at the start for object pooling.")]
     [SerializeField] private int numberOfObstaclesInstances = 1;
     [Tooltip("A gameobject to act as the starting point for when obstacles become active")]
     [SerializeField] private Transform obstacleSpawnPoint;
@@ -12,24 +12,58 @@ public class ObstacleCreation : MonoBehaviour
     [SerializeField] private Transform ObjectPoolParent;
     [SerializeField] private List<GameObject> obstaclePrefabs;
 
-    [SerializeField] private float objectSpeed = 2f;
-    private Queue<GameObject> obstacleObjectPool = new Queue<GameObject>();
+    private List<Obstacle> obstacleObjectPool = new List<Obstacle>();
+
+    private float nextObstacleTimer = 1f;
 
     private void Start()
     {
         ObjectPoolInitialisation();
     }
 
+    private void Update()
+    {
+        CalculateNextObstacle();
+    }
+
     private void ObjectPoolInitialisation()
     {
         foreach(GameObject obstaclePrefab in obstaclePrefabs)
         {
-            for(int i = 0; i == numberOfObstaclesInstances; i++)
+            for(int i = 0; i < numberOfObstaclesInstances; i++)
             {
-                GameObject NewObstacle = Instantiate(obstaclePrefab, obstacleSpawnPoint.position, Quaternion.identity, ObjectPoolParent);
-                obstacleObjectPool.Enqueue(NewObstacle);
-                NewObstacle.GetComponent<Obstacle>().Initialise(obstacleSpawnPoint, objectSpeed);
+                GameObject NewGameObstacle = Instantiate(obstaclePrefab, obstacleSpawnPoint.position, Quaternion.Euler(270, 90, 0), ObjectPoolParent);
+                Obstacle NewObstacle = NewGameObstacle.GetComponent<Obstacle>();
+                NewObstacle.Initialise(obstacleSpawnPoint);
+                obstacleObjectPool.Add(NewObstacle);
             }
+        }
+    }
+
+    private void ActiveNextObstacle()
+    {
+        int NextRandomObstacle = Random.Range(0, obstacleObjectPool.Count);
+        if(!obstacleObjectPool[NextRandomObstacle].IsActive())
+        {
+            obstacleObjectPool[NextRandomObstacle].Activate(GameManager.Instance.CurrentGameStats.stageObstacleSpeed);
+        }
+        else
+            ActiveNextObstacle();
+    }
+
+    private void CalculateNextObstacle()
+    {
+        if(nextObstacleTimer <= 0)
+        {
+            ActiveNextObstacle();
+            float RandomNumber = Random.Range(
+                GameManager.Instance.CurrentGameStats.stageMinObstacleSpawnInterval,
+                GameManager.Instance.CurrentGameStats.stageMaxObstacleSpawnInterval);
+            nextObstacleTimer = RandomNumber;
+        }
+        else
+        {
+            nextObstacleTimer -= 1 * Time.deltaTime;
         }
     }
 }

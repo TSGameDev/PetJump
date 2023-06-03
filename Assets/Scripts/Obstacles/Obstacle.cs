@@ -10,18 +10,24 @@ public class Obstacle : MonoBehaviour
     /// <summary>
     /// Used to setup the obstacle for first time spawning in. Sets spawn point.
     /// </summary>
-    public void Initialise(Transform SpawnPoint, float StartingSpeed)
+    public void Initialise(Transform SpawnPoint)
     {
         spawnPoint = SpawnPoint;
-        speed = StartingSpeed;
         gameObject.SetActive(false);
     }
 
     /// <summary>
+    /// Getter for if this obstacle is active in the scene
+    /// </summary>
+    /// <returns>Bool for if the gameobject is active</returns>
+    public bool IsActive() => gameObject.activeInHierarchy;
+
+    /// <summary>
     /// Function used by object pooling to active this object. Moves the object to the spawnpoint and activates it
     /// </summary>
-    public void Activate()
+    public void Activate(float speed)
     {
+        this.speed = speed;
         transform.position = spawnPoint.transform.position;
         gameObject.SetActive(true);
     }
@@ -39,20 +45,16 @@ public class Obstacle : MonoBehaviour
     /// <summary>
     /// Function to make the obstacle constantly move left at a defined speed.
     /// </summary>
-    private void ContinousMovement() => transform.Translate(-Vector3.right * speed * Time.deltaTime);
-
-    //Collision detection
-    private void OnCollisionEnter(Collision collision)
+    private void ContinousMovement()
     {
-        string collisionTag = collision.gameObject.tag;
-        switch (collisionTag)
+        float dis = Vector3.Distance(transform.position, spawnPoint.position);
+        if(dis >= 11)
         {
-            case "Player":
-                //endgame
-                break;
-            case "Deletion":
-                Deactive();
-                break;
+            Deactive();
+            return;
         }
+
+        transform.Translate(speed * Vector3.right * Time.deltaTime);
     }
+
 }
