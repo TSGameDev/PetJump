@@ -14,11 +14,22 @@ public class InputManager : MonoBehaviour
         playerControls = new PlayerControls();
     }
 
+    private void Update()
+    {
+        if(!GameManager.Instance.isRunning)
+        {
+            playerControls.Disable();
+            playerControls.Game.Disable();
+        }
+        else
+        {
+            playerControls.Enable();
+            playerControls.Game.Enable();
+        }
+    }
+
     private void OnEnable()
     {
-        playerControls.Enable();
-        playerControls.Game.Enable();
-
         playerControls.Game.Jump.performed += ctx => player.Jump();
     }
 

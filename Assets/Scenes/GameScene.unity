@@ -493,56 +493,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &287846472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 287846473}
-  - component: {fileID: 287846474}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &287846473
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287846472}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1976806686}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &287846474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287846472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfe5362801a096a41a3bc52d8108991c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  homePanelUI: {fileID: 642243079}
-  gamePanelUI: {fileID: 1480936135}
-  endGamePanelUI: {fileID: 1184923862}
-  scoreText: {fileID: 751238056}
-  highScoreTextHome: {fileID: 166715395}
-  highScoreTextEndGame: {fileID: 1379093819}
-  differenceToHighScoreText: {fileID: 958524587}
 --- !u!1 &526975192
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +655,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 287846474}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ActiveGamePanel
         m_Mode: 1
@@ -766,6 +716,7 @@ GameObject:
   - component: {fileID: 628441457}
   - component: {fileID: 628441459}
   - component: {fileID: 628441458}
+  - component: {fileID: 628441460}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -817,13 +768,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRunning: 0
-  currentRunTime: 0
-  highestRunTime: 0
+  scoreHandler: {fileID: 11400000, guid: b3e764b490abee24ca4dfe7610598ed3, type: 2}
   gameStages:
-  - activationRunTime: 0
-    stageObstacleSpeed: 4
-    stageMinObstacleSpawnInterval: 2
-    stageMaxObstacleSpawnInterval: 4
+  - {fileID: 11400000, guid: 69eea831c46ac504d8685681dd8bf6b6, type: 2}
+  - {fileID: 11400000, guid: 9740b7c4420900e45a05369a1929ac38, type: 2}
+  - {fileID: 11400000, guid: 46f34285374132146aeb1e7c76275e8d, type: 2}
+--- !u!114 &628441460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628441456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe5362801a096a41a3bc52d8108991c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreHandler: {fileID: 11400000, guid: b3e764b490abee24ca4dfe7610598ed3, type: 2}
+  homePanelUI: {fileID: 642243079}
+  gamePanelUI: {fileID: 1480936135}
+  endGamePanelUI: {fileID: 1184923862}
+  scoreText: {fileID: 751238056}
+  highScoreTextHome: {fileID: 166715395}
+  highScoreTextEndGame: {fileID: 1379093819}
+  differenceToHighScoreText: {fileID: 958524587}
 --- !u!1 &638076248
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +827,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 84.15613, y: 3.9142}
+  m_AnchoredPosition: {x: 84.15625, y: 3.9141998}
   m_SizeDelta: {x: -230.9402, y: -62.6278}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &638076250
@@ -1133,7 +1102,7 @@ GameObject:
   - component: {fileID: 751238057}
   - component: {fileID: 751238056}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: GameScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1584,6 +1553,7 @@ GameObject:
   - component: {fileID: 1368244281}
   - component: {fileID: 1368244280}
   - component: {fileID: 1368244279}
+  - component: {fileID: 1368244282}
   m_Layer: 0
   m_Name: Foreground
   m_TagString: Untagged
@@ -1599,8 +1569,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368244277}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.5, y: -1.27, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.5}
+  m_LocalPosition: {x: 0.5, y: -1.27, z: 5}
+  m_LocalScale: {x: 2, y: 1, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1883339245}
   m_RootOrder: 2
@@ -1668,6 +1638,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368244277}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1368244282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368244277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3195811d08255fc4fb0ba8249a4e5785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1379093817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1840,7 +1822,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.038000003, y: 0.125}
   m_AnchorMax: {x: 0.40600002, y: 0.89000005}
-  m_AnchoredPosition: {x: -0.46002197, y: 1.351799}
+  m_AnchoredPosition: {x: -0.45996094, y: 1.351799}
   m_SizeDelta: {x: -1.9400024, y: -2.7899933}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1409576136
@@ -1968,6 +1950,7 @@ GameObject:
   - component: {fileID: 1442007073}
   - component: {fileID: 1442007072}
   - component: {fileID: 1442007071}
+  - component: {fileID: 1442007074}
   m_Layer: 0
   m_Name: MidGround
   m_TagString: Untagged
@@ -1983,8 +1966,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442007069}
   m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -0.06, y: 0.73, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.35}
+  m_LocalPosition: {x: -0.06, y: 0.73, z: 5}
+  m_LocalScale: {x: 2, y: 1, z: 0.35}
   m_Children: []
   m_Father: {fileID: 1883339245}
   m_RootOrder: 1
@@ -2052,6 +2035,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442007069}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1442007074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442007069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3195811d08255fc4fb0ba8249a4e5785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1480936135
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,7 +2179,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 287846474}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ActiveGamePanel
         m_Mode: 1
@@ -2400,7 +2395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.036000002, y: 0.11478055}
   m_AnchorMax: {x: 0.35065418, y: 0.89565843}
-  m_AnchoredPosition: {x: -0.46099854, y: 6.1186}
+  m_AnchoredPosition: {x: -0.4609375, y: 6.118599}
   m_SizeDelta: {x: 0.0169, y: -14.237}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1594429198
@@ -2525,7 +2520,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287846474}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ActiveHomePanel
         m_Mode: 1
@@ -2869,7 +2864,6 @@ Transform:
   - {fileID: 705507995}
   - {fileID: 963194228}
   - {fileID: 628441457}
-  - {fileID: 287846473}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

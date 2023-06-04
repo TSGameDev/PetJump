@@ -5,10 +5,9 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] Vector3 jumpForce = Vector3.zero;
+    [SerializeField] private Vector3 jumpForce;
 
     private Rigidbody rb;
-
     private bool isGrounded = true;
 
     private void Start()

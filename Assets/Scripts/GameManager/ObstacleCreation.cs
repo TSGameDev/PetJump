@@ -15,9 +15,7 @@ public class ObstacleCreation : MonoBehaviour
     private List<Obstacle> obstacleObjectPool = new List<Obstacle>();
     private float nextObstacleTimer = 1f;
 
-    public float obstacleSpeed { private get; set; }
-    public float obstacleMinSpawnInterval { private get; set; }
-    public float obstacleMaxSpawnInterval { private get; set; }
+    private GameStageSO CurrentGameStage;
 
     private void Start()
     {
@@ -26,6 +24,8 @@ public class ObstacleCreation : MonoBehaviour
 
     private void Update()
     {
+        CurrentGameStage = GameManager.Instance.GetCurrentGameStage();
+
         if(GameManager.Instance.isRunning)
             CalculateNextObstacle();
     }
@@ -49,7 +49,7 @@ public class ObstacleCreation : MonoBehaviour
         int NextRandomObstacle = Random.Range(0, obstacleObjectPool.Count);
         if(!obstacleObjectPool[NextRandomObstacle].IsActive())
         {
-            obstacleObjectPool[NextRandomObstacle].Activate(obstacleSpeed);
+            obstacleObjectPool[NextRandomObstacle].Activate(CurrentGameStage.stageObstacleSpeed);
         }
         else
             ActiveNextObstacle();
@@ -60,7 +60,7 @@ public class ObstacleCreation : MonoBehaviour
         if(nextObstacleTimer <= 0)
         {
             ActiveNextObstacle();
-            float RandomNumber = Random.Range(obstacleMinSpawnInterval, obstacleMaxSpawnInterval);
+            float RandomNumber = Random.Range(CurrentGameStage.stageMinObstacleSpawnInterval, CurrentGameStage.stageMaxObstacleSpawnInterval);
             nextObstacleTimer = RandomNumber;
         }
         else

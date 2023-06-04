@@ -1,36 +1,17 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-
-[Serializable]
-public struct GameStageStats
-{
-    public float activationRunTime;
-    public float stageObstacleSpeed;
-    public float stageMinObstacleSpawnInterval;
-    public float stageMaxObstacleSpawnInterval;
-
-    public GameStageStats(float activationRunTime, float stageObstacleSpeed, float stageMinObstacleSpawnInterval, float stageMaxObstacleSpawnInterval)
-    {
-        this.activationRunTime = activationRunTime;
-        this.stageObstacleSpeed = stageObstacleSpeed;
-        this.stageMinObstacleSpawnInterval = stageMinObstacleSpawnInterval;
-        this.stageMaxObstacleSpawnInterval = stageMaxObstacleSpawnInterval;
-    }
-}
 
 public class GameManager : MonoBehaviour
 {
     public bool isRunning = false;
-    public float currentRunTime = 0;
-    public float highestRunTime;
 
-    [SerializeField] List<GameStageStats> gameStages;
-    [HideInInspector] private GameStageStats CurrentGameStats;
+    [SerializeField] ScoreSO scoreHandler;
+    [SerializeField] List<GameStageSO> gameStages;
 
-    private ObstacleCreation obstacleCreation;
+    private GameStageSO currentGameStage;
+    public GameStageSO GetCurrentGameStage() => currentGameStage;
+
+    private UIManager uiManager;
 
     public static GameManager Instance;
     private void Awake()
@@ -43,48 +24,37 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        obstacleCreation = GetComponent<ObstacleCreation>();
-        highestRunTime = PlayerPrefs.GetFloat("High Score");
-        UIManager.Instance.ActiveHomePanel();
+        uiManager = GetComponent<UIManager>();
+        uiManager.ActiveHomePanel();
+        CalculateGameStage();
     }
 
     private void Update()
     {
         if (isRunning)
-            currentRunTime += 1 * Time.deltaTime;
+            scoreHandler.currentRunTime += 1 * Time.deltaTime;
 
         CalculateGameStage();
     }
 
     private void CalculateGameStage()
     {
-        foreach (GameStageStats stageStats in gameStages)
-        {
-            if (currentRunTime >= stageStats.activationRunTime)
-            {
-                CurrentGameStats = stageStats;
-                obstacleCreation.obstacleSpeed = CurrentGameStats.stageObstacleSpeed;
-                obstacleCreation.obstacleMinSpawnInterval = CurrentGameStats.stageMinObstacleSpawnInterval;
-                obstacleCreation.obstacleMaxSpawnInterval = CurrentGameStats.stageMaxObstacleSpawnInterval;
-            }
-        }
+        foreach (GameStageSO stageStats in gameStages)
+            if (scoreHandler.currentRunTime >= stageStats.activationRunTime)
+                currentGameStage = stageStats;
     }
 
     public void StartGame()
     {
         isRunning = true;
-        currentRunTime = 0;
+        scoreHandler.currentRunTime = 0;
     }
 
     public void EndGame()
     {
         isRunning = false;
-        if(currentRunTime > highestRunTime)
-        {
-            highestRunTime = currentRunTime;
-            PlayerPrefs.SetFloat("High Score", highestRunTime);
-        }
-        UIManager.Instance.ActiveEndGamePanel();
+        scoreHandler.CalculateHighScore();
+        uiManager.ActiveEndGamePanel();
     }
 
     public void CloseGame()
