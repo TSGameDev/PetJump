@@ -655,9 +655,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 628441460}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ActiveGamePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1181537316}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Revival
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1502,6 +1514,17 @@ Transform:
   m_Father: {fileID: 1976806686}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1181537316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 526679101306412108, guid: ce320b492c3d5144da4727cc3a4402e5, type: 3}
+  m_PrefabInstance: {fileID: 2407848046585582892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bbc036c8fa904a469f219956010d2e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1184923862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,7 +1920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.040000003, y: 0.10014098}
   m_AnchorMax: {x: 0.42714185, y: 0.9168591}
-  m_AnchoredPosition: {x: 1.8125916, y: 2.0566025}
+  m_AnchoredPosition: {x: 1.8126221, y: 2.0566025}
   m_SizeDelta: {x: -0.4353981, y: 3.1621017}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1433947322
@@ -2179,9 +2202,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 628441460}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ActiveGamePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1181537316}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Revival
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2520,7 +2555,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 628441460}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: ActiveHomePanel
         m_Mode: 1

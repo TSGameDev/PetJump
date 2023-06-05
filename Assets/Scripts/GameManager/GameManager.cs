@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         isRunning = true;
         scoreHandler.currentRunTime = 0;
+
     }
 
     public void EndGame()
